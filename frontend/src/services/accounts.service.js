@@ -1,27 +1,30 @@
+import createApiClient from "./api.service";
 
-import createApiClient from "./api.service"
-
-class AccountsService{
-    constructor(baseUrl = "/api/account"){
-        this.api = createApiClient(baseUrl)
+class AccountsService {
+  constructor(baseUrl = "/api/auth") {
+    this.api = createApiClient(baseUrl);
+  }
+  async login(email, password) {
+    try {
+      const res = await this.api.post("/login", { email, password });
+      return res.data;
+    } catch (error) {
+      console.log(error);
     }
-    async login(email,matkhau){
-        try{
-            return (await this.api.get(`/login/${email}/${matkhau}`)).data
-        }catch(erorr){
-            console.log(erorr)
-        }
-        
-    }
-    async register(data){
-        return await this.api.post("/register",data).data
-    }
-    async getAccountByEmail(email){
-        return (await this.api.get(`/getEmail/${email}`)).data
-    }
-    async deleteAccountByEmail(email){
-        return await this.api.delete(`/deleteAccount/${email}`).data
-    }
+  }
+  async register(data) {
+    return await this.api.post("/register", {
+      email: data.email,
+      password: data.password,
+      username: data.username,
+    }).data;
+  }
+  async getAccountByEmail(email) {
+    return (await this.api.get(`/getEmail/${email}`)).data;
+  }
+  async deleteAccountByEmail(email) {
+    return await this.api.delete(`/deleteAccount/${email}`).data;
+  }
 }
 
-export default new AccountsService()
+export default new AccountsService();

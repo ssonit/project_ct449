@@ -5,6 +5,7 @@ const publisherRouter = require("./app/routes/publisher.route");
 const readerRouter = require("./app/routes/reader.route");
 const employeeRouter = require("./app/routes/employee.route");
 const borrowBookRouter = require("./app/routes/borrowBook.route");
+const authRouter = require("./app/routes/auth.route");
 
 const cors = require("cors");
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/auth", authRouter);
 app.use("/api/book", bookRouter);
 app.use("/api/publisher", publisherRouter);
 app.use("/api/reader", readerRouter);
