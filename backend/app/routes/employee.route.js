@@ -6,9 +6,14 @@ const {
   add,
   update,
   delete: deleteEmployee,
+  login,
+  register,
 } = require("../controllers/employee.controller");
 
 const router = express.Router();
+
+router.post("/login", login);
+router.post("/register", register);
 
 router.get("/", getAll);
 router.get("/:id", getById);

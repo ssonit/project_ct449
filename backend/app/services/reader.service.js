@@ -2,7 +2,7 @@ const { ObjectId } = require("mongodb");
 
 class ReaderService {
   constructor(client) {
-    this.col = client.db("contactbook").collection("readers");
+    this.col = client.db("contactbook").collection("users");
   }
 
   async getAll() {

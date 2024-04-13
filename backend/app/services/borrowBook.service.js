@@ -2,11 +2,15 @@ const { ObjectId } = require("mongodb");
 
 class BorrowBookService {
   constructor(client) {
-    this.col = client.db("contactbook").collection("employees");
+    this.col = client.db("contactbook").collection("borrowBooks");
   }
 
-  async getAll() {
-    const data = await this.col.find().toArray();
+  async getAll(payload) {
+    const filter = {};
+    if (payload.user_id) {
+      filter["reader_id"] = payload.user_id;
+    }
+    const data = await this.col.find(filter).toArray();
     return data;
   }
   async getById(id) {

@@ -5,7 +5,8 @@ const MongoDB = require("../utils/mongodb.util");
 exports.getAll = async (req, res, next) => {
   try {
     const borrowBookService = new BorrowBookService(MongoDB.client);
-    const documents = await borrowBookService.getAll();
+    const { user_id } = req.query;
+    const documents = await borrowBookService.getAll({ user_id });
     return res.status(200).json(documents);
   } catch (error) {
     return next(

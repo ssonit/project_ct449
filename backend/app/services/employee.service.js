@@ -5,6 +5,40 @@ class EmployeeService {
     this.col = client.db("contactbook").collection("employees");
   }
 
+  async login(data) {
+    const user = await this.col.findOne({
+      username: data.username,
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    if (user.password !== data.password) {
+      return "Invalid password";
+    }
+
+    return user;
+  }
+
+  async register(data) {
+    const user = await this.col.findOne({
+      username: data.username,
+    });
+
+    if (user) {
+      return "User already exists";
+    }
+
+    const result = await this.col.insertOne({
+      ...data,
+      position: "",
+      address: "",
+      phone: "",
+    });
+    return result;
+  }
+
   async getAll() {
     const data = await this.col.find().toArray();
     return data;

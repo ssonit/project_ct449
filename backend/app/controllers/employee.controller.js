@@ -70,3 +70,35 @@ exports.add = async (req, res, next) => {
     );
   }
 };
+exports.login = async (req, res, next) => {
+  try {
+    const employeeService = new EmployeeService(MongoDB.client);
+    const result = await employeeService.login(req.body);
+
+    if (!result) {
+      return next(new ApiError(404, "User not found"));
+    }
+
+    if (result === "Invalid password") {
+      return next(new ApiError(400, "Invalid password"));
+    }
+
+    return res.send(result);
+  } catch (error) {
+    return next(
+      new ApiError(500, "An error ocurred while creating the contact")
+    );
+  }
+};
+exports.register = async (req, res, next) => {
+  try {
+    const employeeService = new EmployeeService(MongoDB.client);
+    const document = await employeeService.register(req.body);
+
+    return res.send(document);
+  } catch (error) {
+    return next(
+      new ApiError(500, "An error ocurred while creating the contact")
+    );
+  }
+};
