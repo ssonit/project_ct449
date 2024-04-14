@@ -4,13 +4,13 @@
 
     <div class="btn_nav">
       <div>
-        <router-link to="/">Home</router-link>
+        <router-link to="/">Trang chủ</router-link>
       </div>
       <div>
-        <router-link to="/book">Book</router-link>
+        <router-link to="/borrow-book">Sách đã mượn</router-link>
       </div>
       <div>
-        <button>Logout</button>
+        <button>Đăng xuất</button>
       </div>
     </div>
   </div>

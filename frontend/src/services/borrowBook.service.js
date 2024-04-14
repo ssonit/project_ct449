@@ -1,18 +1,15 @@
 import createApiClient from "./api.service";
 
-class BookService {
-  constructor(baseUrl = "/api/book") {
+class BorrowBookService {
+  constructor(baseUrl = "/api/borrow-book") {
     this.api = createApiClient(baseUrl);
   }
   async create(data) {
     return (await this.api.post("/create", data)).data;
   }
 
-  async getAll() {
-    return (await this.api.get("/")).data;
-  }
-  async getById(id) {
-    return (await this.api.get("/" + id)).data;
+  async getAll(searchQuery = "") {
+    return (await this.api.get("/" + "?" + searchQuery)).data;
   }
 
   async update(id, data) {
@@ -24,4 +21,4 @@ class BookService {
   }
 }
 
-export default new BookService();
+export default new BorrowBookService();

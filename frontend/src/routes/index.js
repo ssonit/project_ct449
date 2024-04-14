@@ -4,6 +4,8 @@ import ViewHome from "../views/ViewHome.vue";
 
 import ViewLogin from "../views/ViewLogin.vue";
 import ViewRegister from "../views/ViewRegister.vue";
+import ViewBookDetail from "../views/ViewBookDetail.vue";
+import ViewBorrowBook from "../views/ViewBorrowBook.vue";
 
 const routes = [
   {
@@ -20,6 +22,16 @@ const routes = [
     path: "/register",
     name: "register",
     component: ViewRegister,
+  },
+  {
+    path: "/:id",
+    name: "book-detail",
+    component: ViewBookDetail,
+  },
+  {
+    path: "/borrow-book",
+    name: "borrow-book",
+    component: ViewBorrowBook,
   },
 ];
 const router = createRouter({

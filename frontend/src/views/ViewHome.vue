@@ -24,6 +24,9 @@ export default {
         console.log(error);
       }
     },
+    navigateToBook(id) {
+      this.$router.push("/" + id);
+    },
   },
   mounted() {
     this.showAllHome();
@@ -37,15 +40,20 @@ export default {
   <div id="product_h">
     <div class="book-list">
       <div class="book-item" v-for="item in books" :key="item._id">
-        <div class="book-item__img">
-          <img src="https://picsum.photos/seed/picsum/200/300" alt="book" />
-        </div>
-        <div class="book-item__info">
-          <h4 class="book-item__title">{{ item.name }}</h4>
-          <p class="book-item__author">
-            {{ item.author }}
-          </p>
-          <p class="book-item__price">{{ item.price }}</p>
+        <div>
+          <div class="book-item__img">
+            <img src="https://picsum.photos/seed/picsum/200/300" alt="book" />
+          </div>
+          <div class="book-item__info">
+            <h4 class="book-item__title">{{ item.name }}</h4>
+            <p class="book-item__author">
+              {{ item.author }}
+            </p>
+            <p class="book-item__price">{{ item.price }}</p>
+          </div>
+          <button class="btn btn-primary" @click="navigateToBook(item._id)">
+            Mượn
+          </button>
         </div>
       </div>
     </div>
