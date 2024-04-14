@@ -15,6 +15,17 @@
                 {{ item.book.author }}
               </p>
               <p class="book-item__price">{{ item.book.price }}</p>
+              <div>
+                <div style="font-weight: bold">
+                  Ngày mượn:
+                  {{ new Date(item.dateOfBorrow).toISOString().slice(0, 10) }}
+                </div>
+
+                <div style="font-weight: bold">
+                  Ngày trả:
+                  {{ new Date(item.dateOfReturn).toISOString().slice(0, 10) }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
