@@ -5,8 +5,6 @@
 <script>
 import Register from "../components/Register.vue";
 import accountsService from "../services/accounts.service";
-import usersService from "../services/users.service";
-import cartService from "../services/cart.service";
 export default {
   components: {
     Register,

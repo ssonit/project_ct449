@@ -1,81 +1,89 @@
 <script>
-import Home from '../components/userComponents/Home.vue';
-import Product from "../components/userComponents/Products.vue"
-import Nav from '../components/userComponents/NavUser.vue';
-import Footer from '../components/userComponents/Footer.vue';
-import productsService from '../services/products.service';
+import Home from "../components/userComponents/Home.vue";
+import Product from "../components/userComponents/Products.vue";
+import Nav from "../components/userComponents/NavUser.vue";
+import Footer from "../components/userComponents/Footer.vue";
+import bookService from "../services/book.service";
 export default {
   components: {
-      Home,
-      Product,
-      Nav,
-      Footer
+    Home,
+    Product,
+    Nav,
+    Footer,
   },
   data() {
     return {
-        products: [],
-        
+      books: [],
     };
   },
   methods: {
     async showAllHome() {
-        try {
-            this.products = await productsService.showProductByType("SS");
-        } catch (error) {
-            console.log(error);
-        }
+      try {
+        this.books = await bookService.getAll();
+      } catch (error) {
+        console.log(error);
+      }
     },
-    async addcart(product,sl) {
-          if(!sl){
-              sl=1
-          }
-          const fillter={
-              email: localStorage.getItem('email'),
-              soluong:sl,
-              maHH: product.maHH,
-              giamgia:0
-          }
-          if(!localStorage.getItem("email")){
-              window.alert("Mời bạn đăng nhập để có thể thêm sản phẩm vào giỏ") 
-          }else{
-              await cartService.add_product(fillter)
-              window.alert(`Đã thêm sản phẩm ${product.tenHH} số lượng ${sl} vào giỏ hàng` )
-          }
-          
-          
-          
-      },
-
-   
   },
   mounted() {
-      this.showAllHome();
-     
+    this.showAllHome();
   },
-
-}
-
+};
 </script>
 
 <template>
-    <Nav></Nav>
-    <Home></Home>
-    <div id="product_h">
-      <Product :products= "this.products"
-      @update:addcart="addcart"
-      ></Product>
+  <Nav></Nav>
+  <!-- <Home></Home> -->
+  <div id="product_h">
+    <div class="book-list">
+      <div class="book-item" v-for="item in books" :key="item._id">
+        <div class="book-item__img">
+          <img src="https://picsum.photos/seed/picsum/200/300" alt="book" />
+        </div>
+        <div class="book-item__info">
+          <h4 class="book-item__title">{{ item.name }}</h4>
+          <p class="book-item__author">
+            {{ item.author }}
+          </p>
+          <p class="book-item__price">{{ item.price }}</p>
+        </div>
+      </div>
     </div>
-    
-    <Footer></Footer>
+  </div>
+
+  <!-- <Footer></Footer> -->
 </template>
 <style>
-#product_h{
-    width: 84%;
-    height: max-content;
-    margin: auto;
-    margin-top: 10px;
-    padding-bottom: 10px;
+#product_h {
+  margin: 30px 20px;
+}
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
 
-    
+.book-item {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+}
+
+.book-item__img > img {
+  border-radius: 6px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.book-item__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-item__title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px 0;
 }
 </style>

@@ -19,12 +19,6 @@ class AccountsService {
       username: data.username,
     }).data;
   }
-  async getAccountByEmail(email) {
-    return (await this.api.get(`/getEmail/${email}`)).data;
-  }
-  async deleteAccountByEmail(email) {
-    return await this.api.delete(`/deleteAccount/${email}`).data;
-  }
 }
 
 export default new AccountsService();

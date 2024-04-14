@@ -19,11 +19,8 @@
 
 <style>
 #footer {
-  width: 98%;
-  height: max-content;
   background-color: rgb(255, 255, 255);
   margin: auto;
-  padding-bottom: 10px;
 
   border-radius: 3px;
   box-shadow: 1px 1px 1px 2px rgb(222, 222, 222);
