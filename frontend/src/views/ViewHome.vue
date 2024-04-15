@@ -1,13 +1,11 @@
 <script>
 import Home from "../components/userComponents/Home.vue";
-import Product from "../components/userComponents/Products.vue";
 import Nav from "../components/userComponents/NavUser.vue";
 import Footer from "../components/userComponents/Footer.vue";
 import bookService from "../services/book.service";
 export default {
   components: {
     Home,
-    Product,
     Nav,
     Footer,
   },
