@@ -8,6 +8,8 @@ import ViewBookDetail from "../views/ViewBookDetail.vue";
 import ViewBorrowBook from "../views/ViewBorrowBook.vue";
 import ViewAdminHome from "../views/ViewAdminHome.vue";
 import ViewAdminPublisher from "../views/ViewAdminPublisher.vue";
+import ViewModifyPublisher from "../views/ViewModifyPublisher.vue";
+import ViewUpdatePublisher from "../views/ViewUpdatePublisher.vue";
 
 const routes = [
   {
@@ -44,6 +46,16 @@ const routes = [
     path: "/admin/publisher",
     name: "view-admin-publisher",
     component: ViewAdminPublisher,
+  },
+  {
+    path: "/admin/publisher/create",
+    name: "view-admin-publisher-create",
+    component: ViewModifyPublisher,
+  },
+  {
+    path: "/admin/publisher/:id",
+    name: "view-admin-publisher-update",
+    component: ViewUpdatePublisher,
   },
 ];
 const router = createRouter({
