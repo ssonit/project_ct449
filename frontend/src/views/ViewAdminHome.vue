@@ -9,7 +9,7 @@
           <p>ID: {{ user._id }}</p>
           <p>Email: {{ user.email }}</p>
           <p>Tên người dùng: {{ user.username }}</p>
-          <p>SĐT: {{ user.phone }}</p>
+          <p>SĐT: {{ user.phone || "000" }}</p>
         </div>
       </div>
       <div class="dashboard-main__table">
@@ -21,7 +21,9 @@
           "
         >
           <h3>Thông tin sách</h3>
-          <button class="btn btn-primary">Thêm sách</button>
+          <button class="btn btn-primary" @click="navigateToCreateBook">
+            Thêm mới
+          </button>
         </div>
         <table class="table table-hover">
           <thead>
@@ -35,7 +37,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in books" key="item._id">
+            <tr v-for="item in books" :key="item._id">
               <th scope="row">{{ item._id }}</th>
               <td>{{ item.name }}</td>
               <td>{{ item.author }}</td>
@@ -43,8 +45,15 @@
               <td>{{ item.quantity }}</td>
               <td>
                 <div style="display: flex; gap: 10px">
-                  <button class="btn btn-primary">Sửa</button>
-                  <button class="btn btn-danger">Xóa</button>
+                  <button
+                    class="btn btn-primary"
+                    @click="navigateToUpdateBook(item._id)"
+                  >
+                    Sửa
+                  </button>
+                  <button class="btn btn-danger" @click="deleteBook(item._id)">
+                    Xóa
+                  </button>
                 </div>
               </td>
             </tr>
@@ -74,6 +83,20 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async deleteBook(id) {
+      try {
+        await bookService.delete(id);
+        this.books = this.books.filter((item) => item._id !== id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    navigateToCreateBook() {
+      this.$router.push("/admin/book/create");
+    },
+    navigateToUpdateBook(id) {
+      this.$router.push("/admin/book/" + id);
     },
   },
   mounted() {

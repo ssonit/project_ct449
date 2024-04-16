@@ -9,7 +9,7 @@
           <p>ID: {{ user._id }}</p>
           <p>Email: {{ user.email }}</p>
           <p>Tên người dùng: {{ user.username }}</p>
-          <p>SĐT: {{ user.phone }}</p>
+          <p>SĐT: {{ user.phone || "000" }}</p>
         </div>
       </div>
       <div class="dashboard-main__table">
@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in publishers" key="item._id">
+            <tr v-for="item in publishers" :key="item._id">
               <th scope="row">{{ item._id }}</th>
               <td>{{ item.name }}</td>
               <td>{{ item.address }}</td>

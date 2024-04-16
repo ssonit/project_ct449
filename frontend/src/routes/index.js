@@ -10,6 +10,8 @@ import ViewAdminHome from "../views/ViewAdminHome.vue";
 import ViewAdminPublisher from "../views/ViewAdminPublisher.vue";
 import ViewModifyPublisher from "../views/ViewModifyPublisher.vue";
 import ViewUpdatePublisher from "../views/ViewUpdatePublisher.vue";
+import ViewAdminAddBook from "../views/ViewAdminAddBook.vue";
+import ViewAdminUpdateBook from "../views/ViewAdminUpdateBook.vue";
 
 const routes = [
   {
@@ -56,6 +58,16 @@ const routes = [
     path: "/admin/publisher/:id",
     name: "view-admin-publisher-update",
     component: ViewUpdatePublisher,
+  },
+  {
+    path: "/admin/book/create",
+    name: "view-admin-book-create",
+    component: ViewAdminAddBook,
+  },
+  {
+    path: "/admin/book/:id",
+    name: "view-admin-book-update",
+    component: ViewAdminUpdateBook,
   },
 ];
 const router = createRouter({

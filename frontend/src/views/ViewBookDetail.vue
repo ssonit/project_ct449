@@ -3,7 +3,7 @@
     <Nav></Nav>
     <div id="book-detail">
       <div class="book-detail__img">
-        <img src="https://picsum.photos/seed/picsum/200/300" alt="book" />
+        <img :src="book.image" alt="book" />
       </div>
       <div>
         <div class="book-detail__info">

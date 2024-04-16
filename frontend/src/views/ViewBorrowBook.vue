@@ -7,7 +7,7 @@
         <div class="book-item" v-for="item in borrowBook" :key="item._id">
           <div>
             <div class="book-item__img">
-              <img src="https://picsum.photos/seed/picsum/200/300" alt="book" />
+              <img :src="item.book.image" alt="book" />
             </div>
             <div class="book-item__info">
               <h4 class="book-item__title">{{ item.book.name }}</h4>

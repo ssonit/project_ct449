@@ -36,7 +36,10 @@ class BookService {
   }
 
   async addBook(data) {
-    const book = await this.col.insertOne(data);
+    const book = await this.col.insertOne({
+      ...data,
+      publisher: new ObjectId(data.publisher),
+    });
     return book;
   }
 }
