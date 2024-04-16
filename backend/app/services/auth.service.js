@@ -29,13 +29,22 @@ class AuthService {
       return "User already exists";
     }
 
-    const result = await this.col.insertOne({
+    const insertUser = await this.col.insertOne({
       ...data,
       dateOfBirth: new Date().toISOString(),
       gender: "male",
       phone: "",
       address: "",
     });
+
+    if (!insertUser?.acknowledged) {
+      return "An error ocurred";
+    }
+
+    const result = await this.col.findOne({
+      _id: insertUser.insertedId,
+    });
+
     return result;
   }
 }

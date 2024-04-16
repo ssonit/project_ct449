@@ -13,11 +13,16 @@ class AccountsService {
     }
   }
   async register(data) {
-    return await this.api.post("/register", {
-      email: data.email,
-      password: data.password,
-      username: data.username,
-    }).data;
+    try {
+      const res = await this.api.post("/register", {
+        email: data.email,
+        password: data.password,
+        username: data.username,
+      });
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

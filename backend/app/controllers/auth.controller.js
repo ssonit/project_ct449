@@ -28,6 +28,9 @@ exports.register = async (req, res, next) => {
     if (document === "User already exists") {
       return next(new ApiError(400, "User already exists"));
     }
+    if (document === "An error ocurred") {
+      return next(new ApiError(400, "An error ocurred"));
+    }
 
     return res.send(document);
   } catch (error) {
