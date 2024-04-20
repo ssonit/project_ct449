@@ -8,8 +8,8 @@ class BookService {
     return (await this.api.post("/create", data)).data;
   }
 
-  async getAll() {
-    return (await this.api.get("/")).data;
+  async getAll(searchQuery = "") {
+    return (await this.api.get("/" + "?" + searchQuery)).data;
   }
   async getById(id) {
     return (await this.api.get("/" + id)).data;

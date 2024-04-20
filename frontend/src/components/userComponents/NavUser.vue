@@ -4,6 +4,32 @@
       <router-link style="text-decoration: none" to="/">Book Store</router-link>
     </div>
 
+    <div class="search-group">
+      <form @submit.prevent="handleSearchBook" class="form-search">
+        <div class="input-group" style="width: 500px">
+          <input
+            type="text"
+            name="search"
+            id="search"
+            autocomplete="off"
+            placeholder="Tìm kiếm"
+            class="form-control"
+            v-model="search"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+      </form>
+      <ul class="list-group list-book__search">
+        <router-link
+          v-for="item in books"
+          :to="item._id"
+          class="list-group-item list-group-item-action"
+        >
+          {{ item.name }}
+        </router-link>
+      </ul>
+    </div>
+
     <div class="btn_nav">
       <div>
         <router-link to="/">Trang chủ</router-link>
@@ -22,10 +48,26 @@
 </template>
 
 <style>
+.search-group {
+  position: relative;
+}
+.list-book__search {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 100%;
+}
+.form-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .nav {
   background-color: rgb(255, 255, 255);
   height: 70px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-radius: 3px;
   box-shadow: 1px 1px 1px 1px rgb(222, 222, 222);
 }
@@ -60,9 +102,7 @@
 }
 
 #logo {
-  margin-right: auto;
   margin-left: 30px;
-  margin-top: 15px;
   font-weight: 500;
   font-size: 20pt;
   color: blue;
@@ -80,10 +120,14 @@
 </style>
 
 <script>
+import bookService from "../../services/book.service";
+
 export default {
   data() {
     return {
       loggedIn: JSON.parse(localStorage.getItem("user"))?._id ? true : false,
+      books: [],
+      search: "",
     };
   },
   methods: {
@@ -94,6 +138,17 @@ export default {
       localStorage.removeItem("user");
       this.loggedIn = false;
       this.$router.push("/");
+    },
+    async handleSearchBook() {
+      try {
+        const params = new URLSearchParams({ name: this.search });
+        const queryString = params.toString();
+        if (this.search) {
+          this.books = await bookService.getAll(queryString);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

@@ -5,8 +5,14 @@ class BookService {
     this.col = client.db("contactbook").collection("books");
   }
 
-  async getAllBooks() {
-    const books = await this.col.find().toArray();
+  async getAllBooks(payload) {
+    let filter = {};
+
+    if (payload.name) {
+      filter = { $text: { $search: payload.name } };
+    }
+
+    const books = await this.col.aggregate([{ $match: filter }]).toArray();
     return books;
   }
   async getBookById(id) {

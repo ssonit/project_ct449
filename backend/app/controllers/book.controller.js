@@ -5,7 +5,7 @@ const MongoDB = require("../utils/mongodb.util");
 exports.getAllBooks = async (req, res, next) => {
   try {
     const bookService = new BookService(MongoDB.client);
-    const documents = await bookService.getAllBooks();
+    const documents = await bookService.getAllBooks(req.query);
     return res.status(200).json(documents);
   } catch (error) {
     return next(

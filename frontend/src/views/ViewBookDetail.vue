@@ -154,5 +154,10 @@ export default {
   mounted() {
     this.showBookDetail();
   },
+  watch: {
+    $route() {
+      this.showBookDetail();
+    },
+  },
 };
 </script>
