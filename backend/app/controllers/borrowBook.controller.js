@@ -64,6 +64,10 @@ exports.add = async (req, res, next) => {
     const borrowBookService = new BorrowBookService(MongoDB.client);
     const document = await borrowBookService.add(req.body);
 
+    if (document === "Book already borrowed by this user") {
+      return next(new ApiError(400, "Book already borrowed by this user"));
+    }
+
     return res.send(document);
   } catch (error) {
     return next(

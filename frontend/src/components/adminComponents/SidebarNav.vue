@@ -8,6 +8,9 @@
         <li class="sidebar-item" @click="navigateToManagePublisher">
           Nhà xuất bản
         </li>
+        <li class="sidebar-item" @click="navigateToManageBorrowBook">
+          Mượn sách
+        </li>
       </ul>
     </div>
   </aside>
@@ -20,6 +23,9 @@ export default {
     },
     navigateToManagePublisher() {
       this.$router.push("/admin/publisher");
+    },
+    navigateToManageBorrowBook() {
+      this.$router.push("/admin/borrow-book");
     },
   },
 };

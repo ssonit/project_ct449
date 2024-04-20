@@ -1,16 +1,21 @@
 <template>
   <div class="nav">
-    <div id="logo">Book Store</div>
+    <div id="logo">
+      <router-link style="text-decoration: none" to="/">Book Store</router-link>
+    </div>
 
     <div class="btn_nav">
       <div>
         <router-link to="/">Trang chủ</router-link>
       </div>
-      <div>
+      <div v-if="loggedIn">
         <router-link to="/borrow-book">Sách đã mượn</router-link>
       </div>
-      <div>
-        <button>Đăng xuất</button>
+      <div v-if="loggedIn">
+        <button @click="handleLogout">Đăng xuất</button>
+      </div>
+      <div v-if="!loggedIn">
+        <button @click="navigateToLogin">Đăng nhập</button>
       </div>
     </div>
   </div>
@@ -78,8 +83,18 @@
 export default {
   data() {
     return {
-      email: localStorage.getItem("email"),
+      loggedIn: JSON.parse(localStorage.getItem("user"))?._id ? true : false,
     };
+  },
+  methods: {
+    navigateToLogin() {
+      this.$router.push("/login");
+    },
+    handleLogout() {
+      localStorage.removeItem("user");
+      this.loggedIn = false;
+      this.$router.push("/");
+    },
   },
 };
 </script>

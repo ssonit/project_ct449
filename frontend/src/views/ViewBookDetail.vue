@@ -77,6 +77,8 @@
 .book-detail__img > img {
   border-radius: 4px;
   width: 360px;
+  height: 520px;
+  object-fit: cover;
 }
 
 .book-detail__title {
@@ -119,7 +121,12 @@ export default {
     async borrowBook() {
       try {
         const id = this.$route.params.id;
-        const user_id = JSON.parse(localStorage.getItem("user"))._id;
+        const user_id = JSON.parse(localStorage.getItem("user"))?._id;
+
+        if (!user_id) {
+          alert("Bạn cần đăng nhập để mượn sách");
+          return;
+        }
 
         const startDate = new Date(this.dataOfBorrow.dateOfBorrow).getTime();
         const endDate = new Date(this.dataOfBorrow.dateOfReturn).getTime();
@@ -137,7 +144,10 @@ export default {
         });
         this.$router.push("/borrow-book");
       } catch (error) {
-        console.log(error);
+        if (error.response.status === 400) {
+          alert("Bạn đã mượn sách này rồi");
+        }
+        console.log({ error });
       }
     },
   },

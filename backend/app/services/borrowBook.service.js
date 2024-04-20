@@ -24,6 +24,17 @@ class BorrowBookService {
           },
         },
         {
+          $lookup: {
+            from: "users",
+            localField: "reader_id",
+            foreignField: "_id",
+            as: "reader",
+          },
+        },
+        {
+          $unwind: "$reader",
+        },
+        {
           $unwind: "$book",
         },
       ])
@@ -57,6 +68,14 @@ class BorrowBookService {
   }
 
   async add(data) {
+    const borrowBook = await this.col.findOne({
+      book_id: new ObjectId(data.book_id),
+      reader_id: new ObjectId(data.reader_id),
+    });
+
+    if (borrowBook) {
+      return "Book already borrowed by this user";
+    }
     const result = await this.col.insertOne({
       ...data,
       book_id: new ObjectId(data.book_id),

@@ -37,7 +37,12 @@ export default {
   <!-- <Home></Home> -->
   <div id="product_h">
     <div class="book-list">
-      <div class="book-item" v-for="item in books" :key="item._id">
+      <div
+        class="book-item"
+        v-for="item in books"
+        :key="item._id"
+        @click="navigateToBook(item._id)"
+      >
         <div>
           <div class="book-item__img">
             <img :src="item.image" alt="book" />
@@ -49,10 +54,8 @@ export default {
             </p>
             <p class="book-item__price">{{ item.price }}</p>
           </div>
-          <button class="btn btn-primary" @click="navigateToBook(item._id)">
-            Mượn
-          </button>
         </div>
+        <button class="btn btn-primary book-item__btn">Mượn</button>
       </div>
     </div>
   </div>
@@ -73,6 +76,9 @@ export default {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
 }
 
 .book-item__img > img {
@@ -91,5 +97,8 @@ export default {
   font-size: 18px;
   font-weight: bold;
   margin: 8px 0;
+}
+.book-item__btn {
+  margin-top: auto;
 }
 </style>
